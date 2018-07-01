@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { Context } from '../context/ContextProvider';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { SessionContextConsumer } from '../context/session-context';
 
-export default class TestPage extends Component {
+class TestPage extends Component {
 
   render() {
-    return(
+    return (
       <Context.Consumer>
         {context => (
           <div>
             <div>{context.nif}</div>
+            <span>{this.props.session.user ? this.props.session.user.email : ''}</span>
             <Link to="/">home</Link>
           </div>
         )}
@@ -17,3 +19,5 @@ export default class TestPage extends Component {
     )
   }
 }
+
+export default SessionContextConsumer(TestPage)

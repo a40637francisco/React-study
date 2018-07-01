@@ -32,3 +32,9 @@ export default class ContextProvider extends Component {
     )
   }
 }
+
+export const ContextConsumer = (WrappedComponent) => (props) => (
+  <Context.Consumer>
+    {context => <WrappedComponent context={context} {...props}/>}
+  </Context.Consumer>
+)

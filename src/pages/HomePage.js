@@ -1,20 +1,25 @@
 import React, { Component } from 'react';
-import { Context } from '../context/ContextProvider';
-import {Link} from 'react-router-dom';
+import { ContextConsumer } from '../context/ContextProvider';
+import { Link } from 'react-router-dom';
+import { SessionContextConsumer } from '../context/session-context';
 
-export default class HomePage extends Component {
+class HomePage extends Component {
+
+  onLogin = () => {
+    this.props.session.onLogin({accesstoken: 'lol', email: 'email@fasdfsd', id: 1})
+  }
 
   render() {
     return (
-      <Context.Consumer>
-        {context => (
-          <div>
-            <input value={context.nif} onChange={(e) => context.onNifChange(e.target.value)}/>
-            <div>{context.nif}</div>
-            <Link to="/test">Test</Link>
-          </div>
-        )}
-      </Context.Consumer>
+      <div>
+        <input value={this.props.context.nif} onChange={(e) => this.props.context.onNifChange(e.target.value)} />
+        <div>{this.props.context.nif}</div>
+        <button onClick={this.onLogin}>login</button>
+        <Link to="/test">Test</Link>
+      </div>
     )
   }
 }
+
+
+export default SessionContextConsumer(ContextConsumer(HomePage))
